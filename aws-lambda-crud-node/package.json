@@ -1,6 +1,10 @@
 {
   "dependencies": {
     "aws-sdk": "^2.1062.0",
+    "serverless": "^3.7.6",
     "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "serverless-lift": "^1.11.0"
   }
 }

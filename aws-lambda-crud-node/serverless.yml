@@ -11,7 +11,7 @@ provider:
       Action:
         - dynamodb:*
       Resource:
-        - arn:aws:dynamodb:us-west-2:421626112766:table/ClientsTable
+        - arn:aws:dynamodb:us-west-2:738618861152:table/ClientsTable
 
 functions:
   hello:
@@ -21,35 +21,43 @@ functions:
           path: /
           method: get
   createClient:
-    handler: src/client.createClient
+    handler: src/client/createClient.handler
     events:
       - httpApi:
           path: /client
           method: post
   listAllClient:
-    handler: src/client.listAllClient
+    handler: src/client/listAllClient.handler
     events:
       - httpApi:
           path: /client
           method: get
   getClient:
-    handler: src/client.getClient
+    handler: src/client/getClient.handler
     events:
       - httpApi:
           path: /client/{id}
           method: get
   updateClient:
-    handler: src/client.updateClient
+    handler: src/client/updateClient.handler
     events:
       - httpApi:
           path: /client/{id}
           method: put
   deleteClient:
-    handler: src/client.deleteClient
+    handler: src/client/deleteClient.handler
     events:
       - httpApi:
           path: /client/{id}
           method: delete
+  sqsCreateClient:
+    handler: src/clientSQS/createClient.handler
+    events:
+      - sqs:
+          arn: arn:aws:sqs:us-west-2:738618861152:CreateClient
+          batchSize: 10
+          maximumBatchingWindow: 60
+          functionResponseType: ReportBatchItemFailures 
 
 resources:
   Resources:
@@ -65,3 +73,5 @@ resources:
           - AttributeName: id
             KeyType: HASH
 
+plugins:
+  - serverless-lift

@@ -1,0 +1,1 @@
+exports.TABLENAME = "ClientsTable"
