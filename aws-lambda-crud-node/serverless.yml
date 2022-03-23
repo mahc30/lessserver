@@ -14,12 +14,6 @@ provider:
         - arn:aws:dynamodb:us-west-2:738618861152:table/ClientsTable
 
 functions:
-  hello:
-    handler: src/hello.hello
-    events:
-      - httpApi:
-          path: /
-          method: get
   createClient:
     handler: src/client/createClient.handler
     events:
